@@ -62,9 +62,10 @@ Under **Settings → MCP connections**:
 |-----------|-------|
 | Name      | `ha-automation` |
 | Transport | `stdio` |
-| Command   | `ha-automation-mcp` |
-| Arguments | `[]` |
+| Command   | `uvx` |
+| Arguments | `["--from", "git+https://github.com/aderik/ha-automation-mcp@v1.0.0", "ha-automation-mcp"]` |
 | Secrets   | `{"HA_URL": "http://<ha-host>:8123", "HA_TOKEN": "..."}` |
 
-The LogicForce image installs the server at build time, so a connection test
-does not have to download anything.
+The first start in a container downloads Python and the server (about half a
+minute); LogicForce allows for that, and later starts are cached. To upgrade,
+change the tag in the arguments.
