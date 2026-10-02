@@ -10,11 +10,12 @@ AI agent can manage Home Assistant without anyone pasting YAML:
 - Lovelace dashboards: dashboards, views and cards
 - registries: entities, devices, config entries (reload / enable / disable / remove)
 - recorder history, reload and restart
-- native HA: entity state and service calls (needs a long-lived token)
+- native HA: entity state and service calls
 
 ## Requirements
 
-- Home Assistant with the `automation_api` integration (>= 0.8.0) installed via HACS
+- Home Assistant with the `automation_api` integration (>= 1.0.0) installed via HACS
+- A long-lived access token of an **administrator** (profile → Security)
 - For the managed package tools, packages enabled in `configuration.yaml`:
 
   ```yaml
@@ -27,8 +28,7 @@ AI agent can manage Home Assistant without anyone pasting YAML:
 | Variable     | Required | Description |
 |--------------|----------|-------------|
 | `HA_URL`     | yes      | Base URL, e.g. `http://homeassistant.local:8123` |
-| `HA_API_KEY` | yes      | API key from the Automation API integration (sent as `X-API-KEY`) |
-| `HA_TOKEN`   | no       | Long-lived access token; enables `get_state` and `call_service` |
+| `HA_TOKEN`   | yes      | Long-lived access token of an administrator, used for every call |
 
 ## Install and run
 
@@ -50,7 +50,7 @@ uvx --from git+https://github.com/aderik/ha-automation-mcp ha-automation-mcp
 ```bash
 claude mcp add ha-automation -s user \
   -e HA_URL=http://homeassistant.local:8123 \
-  -e HA_API_KEY=... -e HA_TOKEN=... \
+  -e HA_TOKEN=... \
   -- ha-automation-mcp
 ```
 
@@ -64,7 +64,7 @@ Under **Settings → MCP connections**:
 | Transport | `stdio` |
 | Command   | `ha-automation-mcp` |
 | Arguments | `[]` |
-| Secrets   | `{"HA_URL": "http://<ha-host>:8123", "HA_API_KEY": "...", "HA_TOKEN": "..."}` |
+| Secrets   | `{"HA_URL": "http://<ha-host>:8123", "HA_TOKEN": "..."}` |
 
 The LogicForce image installs the server at build time, so a connection test
 does not have to download anything.
