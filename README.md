@@ -1,5 +1,10 @@
 # ha-automation-mcp
 
+> **Deprecated.** Since v1.1.0 the [Home Assistant Automation API](https://github.com/aderik/ha-automation-api#mcp-server)
+> integration serves the same 58 tools itself, over Streamable HTTP at
+> `/api/automation_api/mcp`. Point your MCP client there; this standalone
+> server is no longer maintained.
+
 MCP server for the [Home Assistant Automation API](https://github.com/aderik/ha-automation-api)
 custom integration. It exposes the integration's REST API as MCP tools, so an
 AI agent can manage Home Assistant without anyone pasting YAML:
